@@ -1,0 +1,1 @@
+from handlers import coin, emoji, other, StonePaper, trueFalse, cube
