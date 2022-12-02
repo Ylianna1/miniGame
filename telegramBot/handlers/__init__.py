@@ -1,1 +1,1 @@
-from handlers import coin, emoji, other, StonePaper, trueFalse, cube
+from handlers import coin, other, StonePaper, trueFalse, cube
