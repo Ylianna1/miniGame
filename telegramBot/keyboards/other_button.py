@@ -9,7 +9,7 @@ kb_other = InlineKeyboardMarkup(row_width=1)
 gameButton1 = InlineKeyboardButton(text='Орел чи решка?', callback_data='gameButton1')
 gameButton2 = InlineKeyboardButton(text='Правда чи брехня?', callback_data='gameButton2')
 gameButton3 = InlineKeyboardButton(text='Кубик', callback_data='gameButton3')
-gameButton4 = InlineKeyboardButton(text='Камень, ножеці, папір', callback_data='gameButton4')
+gameButton4 = InlineKeyboardButton(text='Камінь, ножиці, папір', callback_data='gameButton4')
 kb_other.add(gameButton1, gameButton2, gameButton3, gameButton4)
 
 # ---------------Кнопки списку опцій---------------
@@ -59,7 +59,7 @@ async def emoji_call(emoji_call: types.CallbackQuery):
 @dp.callback_query_handler(text="gameButton4")
 async def Stone_call(Stone_call: types.CallbackQuery):
     await Stone_call.message.delete()
-    await Stone_call.message.answer("Гра 'Камень, ножеці, папір'", reply_markup=kb_function_Stone_call)
+    await Stone_call.message.answer("Гра 'Камінь, ножиці, папір'", reply_markup=kb_function_Stone_call)
 
 
 
