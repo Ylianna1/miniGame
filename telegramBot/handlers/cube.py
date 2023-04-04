@@ -22,6 +22,11 @@ async def Yes(Yes: types.CallbackQuery):
 
 @dp.message_handler(text=['🎲🎲','Куб','куб'])
 async def coinGame(message : types.Message):
+
+    d = open('text_infoGame/points.txt', 'r', encoding='UTF-8')
+    chips = int(d.read())
+    d.close()
+
     user_data = await bot.send_dice(message.from_user.id)
     user_data = user_data['dice']['value']
     await sleep(5)
@@ -31,11 +36,25 @@ async def coinGame(message : types.Message):
     await sleep(5)
 
     if bot_data > user_data:
+        chips=chips+0
         await message.answer("Ви програли!")
+        await message.answer(f'Кількість ваших фішок: {chips}🎫')
+        await sleep(1)
         await message.answer('Бажаєте повторити?', reply_markup=kb_cube)
     elif bot_data < user_data:
+        chips+=2
         await message.answer("Ви перемогли!")
+        await message.answer(f'Кількість ваших фішок: {chips}🎫')
+        await sleep(1)
         await message.answer('Бажаєте повторити?', reply_markup=kb_cube)
     else:
+        chips+=1
         await message.answer("Ничия!")
+        await message.answer(f'Кількість ваших фішок: {chips}🎫')
+        await sleep(1)
         await message.answer('Бажаєте повторити?', reply_markup=kb_cube)
+    
+        
+    d = open('text_infoGame/points.txt', "w")
+    d.write(str(chips))
+    d.close()

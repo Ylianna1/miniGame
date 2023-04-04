@@ -1,1 +1,1 @@
-from keyboards.other_button import kb_other, kb_function_back
+from keyboards.other_button import kb_otherOne, kb_otherTwo, kb_function_back

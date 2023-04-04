@@ -35,9 +35,15 @@ b=check()
 
 @dp.message_handler(text=['Правда','Брехня'])
 async def StoneGame(message : types.Message):
+
     global points
     global g
     global b
+
+    d = open('text_infoGame/points.txt', 'r', encoding='UTF-8')
+    chips = int(d.read())
+    d.close()
+
     if b == 2:
         await sleep(0.5)
         if message.text =='Правда':
@@ -65,17 +71,22 @@ async def StoneGame(message : types.Message):
     else:
         g=0
         if points < 3:
-            await message.answer('Не здавайтесь! ')
-            await sleep(1)
-            await message.answer('Хочите повторити?', reply_markup=kb_answers)
+            chips=chips
+            await message.answer('Не здавайтесь! ')           
         elif points == 6:
-            await message.answer('Ви молодець! Вірно відповіли на всі відповіді')
-            await sleep(1)
-            await message.answer('Хочите повторити?', reply_markup=kb_answers)
+            chips+=12
+            await message.answer('Ви молодець! Вірно відповіли на всі відповіді')           
         else:
+            chips+=6
             await message.answer('Чудова робота! Ви відповіли на більшість відповідей правильно.')
-            await sleep(1)
-            await message.answer('Хочите повторити?', reply_markup=kb_answers)
+        await sleep(1)
+        await message.answer(f'Кількість ваших фішок: {chips}🎫')
+        await sleep(1)
+        await message.answer('Хочите повторити?', reply_markup=kb_answers)
+
+        d = open('text_infoGame/points.txt', "w")
+        d.write(str(chips))
+        d.close()
 
 
 @dp.callback_query_handler(text="Yes")
@@ -91,4 +102,10 @@ async def StoneGame(StoneGame: types.CallbackQuery):
 
 @dp.callback_query_handler(text="No")
 async def End(End: types.CallbackQuery):
-    await End.message.answer('Привіт, давай пограємо!', reply_markup=keyboards.other_button.kb_other)
+    d = open('text_infoGame/points.txt', 'r', encoding='UTF-8')
+    chips = int(d.read())
+    d.close()
+    if chips>=3:
+        await End.message.answer('Привіт, давай пограємо!', reply_markup=keyboards.other_button.kb_otherTwo)
+    else:
+        await End.message.answer('Привіт, давай пограємо!', reply_markup=keyboards.other_button.kb_otherOne)

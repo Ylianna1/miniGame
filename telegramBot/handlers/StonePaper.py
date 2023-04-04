@@ -30,9 +30,15 @@ b=['✊','🖐','✌️','👌']
 
 @dp.message_handler(text=b)
 async def StoneGame(message : types.Message):
+
     global points
     global point
     global i
+    
+    d = open('text_infoGame/points.txt', 'r', encoding='UTF-8')
+    chips = int(d.read())
+    d.close()
+
     if i < 3:
         i+=1
         ans=(random.choice(b))
@@ -72,14 +78,23 @@ async def StoneGame(message : types.Message):
         if points >= 2:
             await message.answer('Вітаю, Ви перемогли!!!')
             await message.answer('🎉')
+            chips+=2
         elif points == point:
             await message.answer('У нас нічия')
             await message.answer('👏')
+            chips+=1
         else:
             await message.answer('Бу-га-га-га.Це моя перемога!!!')
             await message.answer('😈')
+            chips=chips
         await sleep(1)
         await message.answer(f'Ви набрали {points} бали')
+        await sleep(1)
+        await message.answer(f'Кількість ваших фішок: {chips}🎫')
         await message.answer('Бажаєте повторити?', reply_markup=buttn_continuation)
         points=0
         point=0
+        
+        d = open('text_infoGame/points.txt', "w")
+        d.write(str(chips))
+        d.close()
