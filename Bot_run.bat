@@ -4,7 +4,7 @@ call %~dp0telegramBot\venv\Scipts\activate
 
 cd %~dp0telegramBot
 
-set TOKEN=**********************************
+set TOKEN=#####################################
 
 python bot_telegram.py
 
