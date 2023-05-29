@@ -14,7 +14,7 @@ async def command_start(message : types.Message):
 
 '*****info****'
 async def command_info(message : types.Message):
-    await message.answer('Привіт! Я -@ ,творець цього бота. Якщо в вас є якісь побажання до бота прошу пішіть')
+    await message.answer('Привіт! Я Юліанна, творець цього бота. Якщо в вас є якісь побажання до бота прошу пішіть')
 
 '*****start****'
 def register_hendlers_other(dp : Dispatcher):

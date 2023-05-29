@@ -1,8 +1,9 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
+#from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram import types
 from create_bot import dp, bot
-import keyboards.other_button
+#import keyboards.other_button
+import random
 from asyncio import sleep
 
 '***********Кнопки відповідей***************'
@@ -21,7 +22,7 @@ async def Yes(Yes: types.CallbackQuery):
 
 '***********Game***************'
 
-@dp.message_handler(text=['Крутити рулетку'])
+@dp.message_handler(text=['Крутити рулетку', 'рулетка' , 'Рулетка','крутити рулетку'])
 async def coinGame(message : types.Message):
     d = open('text_infoGame/points.txt', 'r', encoding='UTF-8')
     chips = int(d.read())
@@ -35,10 +36,15 @@ async def coinGame(message : types.Message):
         d.close()
         await sleep(2)
         if bot_data==64 or bot_data==1 or bot_data==43 or bot_data==22 :
-            await message.answer("Яхууу!", reply_markup=rooleteButton)
+            Victory = random.choice(open("handlers/media/web.txt", 'r', encoding='UTF-8').readlines())
+            await message.answer("Вітаю з перемогою!")        
+            await sleep(1)
+            await message.answer("А ось ваш приз!")   
+            await sleep(1)   
+            await message.answer(Victory, reply_markup=rooleteButton)
         else:
-            await message.answer("Повторити?", reply_markup=rooleteButton)
-        # await sleep(5)
+            await message.answer("Наступного разу пощастить!")
+            await message.answer("Спробувати ще?", reply_markup=rooleteButton)
     else:
         await message.answer("Вас недостатньо фішок", reply_markup=kb_roolet_back)
    

@@ -22,7 +22,7 @@ async def Yes(Yes: types.CallbackQuery):
 frames=0
 points_bowling=0
 
-@dp.message_handler(text=['🎱'])
+@dp.message_handler(text=['🎱', 'Боулінг', 'боулінг', 'шар', 'Шар', 'Запустити шар', 'запустити шар'])
 async def coinGame(message : types.Message):
     global frames
     global points_bowling
@@ -34,34 +34,40 @@ async def coinGame(message : types.Message):
         bot_data=bot_data['dice']['value']   
         if bot_data<3:
             bot_data=bot_data-1
+            await sleep(3)
+            await message.answer(f'Кількість збитих кегель:  {bot_data}',  reply_markup=bowlingButton)
         elif bot_data==6:
-            await sleep(2)
-            await message.answer('Strike')
-        points_bowling+=bot_data     
-        await sleep(3)
-        await message.answer(f'Кількість збитих кегель:  {bot_data}',  reply_markup=bowlingButton)
+            await sleep(3)
+            await message.answer('Strike',  reply_markup=bowlingButton)
+        else:
+            await sleep(3)
+            await message.answer(f'Кількість збитих кегель:  {bot_data}',  reply_markup=bowlingButton)
+        points_bowling+=bot_data             
         frames+=1
     else:
         bot_data =await bot.send_dice(message.chat.id, emoji='🎳')
         bot_data=bot_data['dice']['value']
         if bot_data<3:
             bot_data=bot_data-1
+            await sleep(3)
+            await message.answer(f'Кількість збитих кегель:  {bot_data}')
         elif bot_data==6:
-            await sleep(2)
+            await sleep(3)
             await message.answer('Strike')
-        points_bowling+=bot_data    
-        await sleep(3)
-        await message.answer(f'Кількість збитих кегель:  {bot_data}')
+        else:
+            await sleep(3)
+            await message.answer(f'Кількість збитих кегель:  {bot_data}')
+        points_bowling+=bot_data           
         await sleep(1)
         await message.answer(f'Кількість очків: {points_bowling}')
         if points_bowling>15:
-            chips=chips+4
+            chips=chips+3
         elif points_bowling==30:
             chips=chips+9
         elif points_bowling==0:
             chips=chips
         elif points_bowling<=15:
-            chips=chips+2
+            chips=chips+1
         else:  
             chips=chips+1    
         await sleep(1)

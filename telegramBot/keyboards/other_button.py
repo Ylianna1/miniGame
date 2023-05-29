@@ -159,9 +159,17 @@ async def info_call(info_call: types.CallbackQuery):
     await info_call.message.delete()
     await info_call.message.answer(infoGame,  reply_markup=kb_function_back)
 
+@dp.callback_query_handler(text="info_bowling")
+async def info_call(info_call: types.CallbackQuery):
+    f = open('text_infoGame/bowling.txt', 'r', encoding='UTF-8')
+    infoGame = f.read()
+    f.close()
+    await info_call.message.delete()
+    await info_call.message.answer(infoGame,  reply_markup=kb_function_back)
+
 @dp.callback_query_handler(text="info_roulette")
 async def info_call(info_call: types.CallbackQuery):
-    f = open('text_infoGame/cube.txt', 'r', encoding='UTF-8')
+    f = open('text_infoGame/Roulette.txt', 'r', encoding='UTF-8')
     infoGame = f.read()
     f.close()
     await info_call.message.delete()

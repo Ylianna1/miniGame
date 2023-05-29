@@ -1,4 +1,4 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram import types
 from create_bot import dp
@@ -74,10 +74,10 @@ async def StoneGame(message : types.Message):
             chips=chips
             await message.answer('Не здавайтесь! ')           
         elif points == 6:
-            chips+=12
+            chips+=6
             await message.answer('Ви молодець! Вірно відповіли на всі відповіді')           
         else:
-            chips+=6
+            chips+=3
             await message.answer('Чудова робота! Ви відповіли на більшість відповідей правильно.')
         await sleep(1)
         await message.answer(f'Кількість ваших фішок: {chips}🎫')
